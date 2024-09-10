@@ -1,0 +1,18 @@
+meta {
+  name: CreateGoal
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/goals
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Programar",
+    "desiredWeeklyFrequency": 4
+  }
+}
