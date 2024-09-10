@@ -1,0 +1,17 @@
+meta {
+  name: CreateGoalCompletion
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/completions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "goalId": "y3a2w3gqf8g4i1i932qqk54c"
+  }
+}
