@@ -4,53 +4,18 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
-import z from 'zod'
-import { createGoal } from '../services/create-goal'
-import { getWeekPendingGoals } from '../services/get-week-pending-goals'
-import { createGoalCompletion } from '../services/create-goal-completion'
+import { createGoalRoute } from './routes/create-goal'
+import { createGoalCompletionRoute } from './routes/create-goal-completion'
+import { getWeekPendingGoalsRoute } from './routes/get-week-pending-goals'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
-app.get('/pending-goals', async () => {
-  return await getWeekPendingGoals()
-})
-
-app.post(
-  '/goals',
-  {
-    schema: {
-      body: z.object({
-        title: z.string(),
-        desiredWeeklyFrequency: z.number().int().min(1).max(7),
-      }),
-    },
-  },
-  async ({ body }) => {
-    await createGoal({
-      title: body.title,
-      desiredWeeklyFrequency: body.desiredWeeklyFrequency,
-    })
-  }
-)
-
-app.post(
-  '/completions',
-  {
-    schema: {
-      body: z.object({
-        goalId: z.string(),
-      }),
-    },
-  },
-  async ({ body }) => {
-    return await createGoalCompletion({
-      goalId: body.goalId,
-    })
-  }
-)
+app.register(createGoalRoute)
+app.register(createGoalCompletionRoute)
+app.register(getWeekPendingGoalsRoute)
 
 app
   .listen({
