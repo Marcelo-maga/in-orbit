@@ -19,7 +19,7 @@ async function seed() {
 
   await db
     .insert(goalCompletions)
-    .values([{ goalId: result[1].id, createdAt: startOfWeek.toDate() }])
+    .values([{ goalId: result[2].id, createdAt: startOfWeek.toDate() }])
 }
 
 seed().finally(() => {

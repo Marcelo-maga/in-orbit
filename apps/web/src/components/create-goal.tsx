@@ -17,7 +17,7 @@ export function CreateGoal() {
 
   return (
     <>
-      <Button onPress={onOpen} color="primary" startContent={<Plus />}>
+      <Button onClick={onOpen} color="primary" startContent={<Plus />}>
         Cadastrar meta
       </Button>
       <Modal

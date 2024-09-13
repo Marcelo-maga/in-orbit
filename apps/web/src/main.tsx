@@ -3,12 +3,17 @@ import { createRoot } from "react-dom/client";
 import { App } from "./app";
 import "./index.css";
 import { NextUIProvider } from "@nextui-org/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <NextUIProvider>
-      <App />
-    </NextUIProvider>
+    <QueryClientProvider client={queryClient}>
+      <NextUIProvider>
+        <App />
+      </NextUIProvider>
+    </QueryClientProvider>
   </StrictMode>
 );
